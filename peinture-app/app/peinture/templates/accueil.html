@@ -1,0 +1,94 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- Container wrapper -->
+  <div class="container">
+    <!-- Navbar brand -->
+    <a class="navbar-brand me-2" href="https://mdbgo.com/">
+      <img
+        src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+        height="16"
+        alt="MDB Logo"
+        loading="lazy"
+        style="margin-top: -1px;"
+      />
+    </a>
+
+      <div class="d-flex align-items-center">
+        <a type="button" class="btn btn-link px-3 me-2"href="{% url 'login_view' %}">
+          Login
+        </a>
+        
+      </div>
+    </div>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+
+
+
+
+
+
+
+
+
+{% block content %}
+  <h1>Recherche de couleur</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.marque }}
+    {{ form.voiture }}
+    {{ form.color_code }}
+
+    <button type="submit">Rechercher</button>
+  </form>
+
+  {% if couleurs %}
+    <table>
+      <thead>
+        <tr>
+          <th>Modèle</th>
+          <th>Année</th>
+          <th>Nom de la couleur</th>
+          <th>Code couleur</th>
+          <th>Couleur</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in couleurs %}
+          <tr>
+            <td><a class="btn btn-warning" href="{% url 'couleur_details' c.code.id %}">{{ c.name }}</a></td>
+            <td>{{ c.annee }}</td>
+            <td>{{ c.code.name }}</td>
+            <td>{{ c.code.color_code }}</td>
+            <td style="background-color: {{c.hex_code}};"></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+    {% endblock %}
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
